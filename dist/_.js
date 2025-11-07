@@ -50,14 +50,13 @@ function FMT(input, base) {
 }
 const IN = fs_1.default.readFileSync("test.txt", { encoding: "utf8" }).trim();
 fs_1.default.mkdirSync("radix");
+fs_1.default.mkdirSync("radix/encoded");
+fs_1.default.mkdirSync("radix/decoded");
 Object.keys(bases)
     .map(Number)
     .forEach(b => {
     const base = b;
     const out = FMT(IN, base);
-    fs_1.default.writeFileSync(`radix/${base}`, [
-        out.e,
-        "=".repeat(out.e.length),
-        out.d,
-    ].join("\n"));
+    fs_1.default.writeFileSync(`radix/encoded/${("0".repeat(2 - `${base}`.length)) + base}`, out.e);
+    fs_1.default.writeFileSync(`radix/decoded/${("0".repeat(2 - `${base}`.length)) + base}`, out.d);
 });
