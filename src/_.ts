@@ -52,13 +52,10 @@ function FMT(input: string, base: Radix) {
 }
 const IN = fs.readFileSync("test.txt", { encoding: "utf8" }).trim()
 fs.mkdirSync("radix")
-fs.mkdirSync("radix/encoded")
-fs.mkdirSync("radix/decoded")
 Object.keys(bases)
 	.map(Number)
 	.forEach(b => {
 		const base = b as Radix
 		const out = FMT(IN, base)
-		fs.writeFileSync(`radix/encoded/${("0".repeat(2 - `${base}`.length)) + base}`, out.e)
-		fs.writeFileSync(`radix/decoded/${("0".repeat(2 - `${base}`.length)) + base}`, out.d)
+		fs.writeFileSync(`radix/${("0".repeat(2 - `${base}`.length)) + base}`, out.e)
 	})
