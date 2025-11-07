@@ -8,7 +8,7 @@ flag() {
 if flag local; then
 	:
 else
-	:
+	npm ci
 fi
 rm -rf dist
 tsc
