@@ -11,6 +11,7 @@ for (let i = 2; i <= digits.length; i++) {
     bases[i] = `[${digits.slice(0, i)}]`;
 }
 const ENCODING = js_yaml_1.default.load(fs_1.default.readFileSync("encoding.yml", "utf8")).flat(Infinity);
+const UNI = js_yaml_1.default.load(fs_1.default.readFileSync("uni.yml", "utf8"));
 function getLength(base) {
     return ENCODING
         .indexOf(ENCODING
@@ -33,22 +34,30 @@ function encode(input, base) {
 }
 function decode(input, base) {
     let baseNum = bases[base];
-    return input.replace(new RegExp(`${baseNum}{${getLength(base)}}`, "gi"), m => ENCODING[parseInt(m, base)] ?? m);
+    input = input.replace(new RegExp(`${baseNum}{${getLength(base)}}`, "gi"), m => ENCODING[parseInt(m, base)] ?? m);
+    UNI.forEach((kv, i) => {
+        Object.entries(kv).forEach(([k, v]) => {
+            input = input
+                .replace(`${k}${"_".repeat(i + 1)}`, v);
+        });
+    });
+    return input;
 }
 function FMT(input, base) {
     const e = encode(input, base);
     const d = decode(e, base);
     return { e, d };
 }
-const IN = fs_1.default.readFileSync("test.txt", { encoding: "utf8" });
+const IN = fs_1.default.readFileSync("test.txt", { encoding: "utf8" }).trim();
 fs_1.default.mkdirSync("radix");
 Object.keys(bases)
     .map(Number)
     .forEach(b => {
     const base = b;
     const out = FMT(IN, base);
-    fs_1.default.writeFileSync(`radix/${base}.log`, [
+    fs_1.default.writeFileSync(`radix/${base}`, [
         out.e,
-        out.d
-    ].join("\n\n"));
+        "=".repeat(out.e.length),
+        out.d,
+    ].join("\n"));
 });

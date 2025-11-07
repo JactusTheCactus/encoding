@@ -8,7 +8,8 @@ let bases: Record<number, string> = {}
 for (let i = 2; i <= digits.length; i++) {
 	bases[i] = `[${digits.slice(0, i)}]`
 }
-const ENCODING: Array<string> = (YAML.load(fs.readFileSync("encoding.yml", "utf8")) as Array<string>).flat(Infinity)
+const ENCODING = (YAML.load(fs.readFileSync("encoding.yml", "utf8")) as Array<string>).flat(Infinity)
+const UNI = YAML.load(fs.readFileSync("uni.yml", "utf8")) as Array<Record<string, string>>
 function getLength(base: Radix) {
 	return ENCODING
 		.indexOf(ENCODING
@@ -32,27 +33,35 @@ function encode(input: string, base: Radix) {
 }
 function decode(input: string, base: Radix) {
 	let baseNum = bases[base]
-	return input.replace(
+	input = input.replace(
 		new RegExp(`${baseNum}{${getLength(base)}}`, "gi"),
 		m => ENCODING[parseInt(m, base)] ?? m
 	)
+	UNI.forEach((kv, i) => {
+		Object.entries(kv).forEach(([k, v]) => {
+			input = input
+				.replace(`${k}${"_".repeat(i + 1)}`, v)
+		})
+	})
+	return input
 }
 function FMT(input: string, base: Radix) {
 	const e = encode(input, base)
 	const d = decode(e, base)
 	return { e, d }
 }
-const IN = fs.readFileSync("test.txt", { encoding: "utf8" })
+const IN = fs.readFileSync("test.txt", { encoding: "utf8" }).trim()
 fs.mkdirSync("radix")
 Object.keys(bases)
 	.map(Number)
 	.forEach(b => {
 		const base = b as Radix
 		const out = FMT(IN, base)
-		fs.writeFileSync(`radix/${base}.log`,
+		fs.writeFileSync(`radix/${base}`,
 			[
 				out.e,
-				out.d
-			].join("\n\n")
+				"=".repeat(out.e.length),
+				out.d,
+			].join("\n")
 		)
 	})
