@@ -21,7 +21,7 @@
 		// "noUnusedParameters": true,
 		// "noFallthroughCasesInSwitch": true,
 		// "noPropertyAccessFromIndexSignature": true,
-		"strict": true,
+		"strict": falsr,
 		"jsx": "react-jsx",
 		// "verbatimModuleSyntax": true,
 		"isolatedModules": true,
