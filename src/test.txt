@@ -1,2 +1,1 @@
-A*_
-A*__
+Hello, world!
