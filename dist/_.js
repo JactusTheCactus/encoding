@@ -10,8 +10,14 @@ let bases = {};
 for (let i = 2; i <= digits.length; i++) {
     bases[i] = `[${digits.slice(0, i)}]`;
 }
-const ENCODING = js_yaml_1.default.load(fs_1.default.readFileSync("encoding.yml", "utf8")).flat(Infinity);
 const UNI = js_yaml_1.default.load(fs_1.default.readFileSync("uni.yml", "utf8"));
+const ENCODING = [
+    ...js_yaml_1.default.load(fs_1.default.readFileSync("encoding.yml", "utf8"))
+        .flat(Infinity),
+    ...UNI
+        .map(i => Object.values(i))
+        .flat()
+];
 function getLength(base) {
     return ENCODING
         .indexOf(ENCODING
@@ -21,26 +27,31 @@ function getLength(base) {
         .length;
 }
 function encode(input, base) {
-    return input.replace(/[\S\s]/g, m => {
-        let CHAR = ENCODING
-            .indexOf(m);
-        CHAR = CHAR === -1
+    return input.replace(/[\S\s]/g, (m) => {
+        const idx = ENCODING.indexOf(m);
+        return (idx === -1
             ? 0
-            : CHAR;
-        CHAR = CHAR
-            .toString(base);
-        return "0".repeat(getLength(base) - CHAR.length) + CHAR;
+            : idx)
+            .toString(base)
+            .toUpperCase()
+            .padStart(getLength(base), "0");
     });
 }
 function decode(input, base) {
-    let baseNum = bases[base];
-    input = input.replace(new RegExp(`${baseNum}{${getLength(base)}}`, "gi"), m => ENCODING[parseInt(m, base)] ?? m);
-    UNI.forEach((kv, i) => {
-        Object.entries(kv).forEach(([k, v]) => {
-            input = input
-                .replace(`${k}${"_".repeat(i + 1)}`, v);
+    const baseNum = bases[base];
+    input = input.replace(new RegExp(`${baseNum}{${getLength(base)}}`, "gi"), (m) => ENCODING[parseInt(m, base)] ?? m);
+    for (let i = UNI.length - 1; i >= 0; i--) {
+        Object.entries(UNI[i])
+            .forEach(([k, v]) => {
+            input = input.replace(new RegExp(`${k}${"_".repeat(i + 1)}`, "g"), v);
         });
-    });
+    }
+    /*UNI.forEach((kv: Record<string, string>, i: number): void => {
+        Object.entries(kv)
+            .forEach(([k, v]: [string, string]): void => {
+                input = input.replace(new RegExp(`${k}${"_".repeat(i + 1)}`, "g"), v)
+            })
+    })*/
     return input;
 }
 function FMT(input, base) {
@@ -48,12 +59,21 @@ function FMT(input, base) {
     const d = decode(e, base);
     return { e, d };
 }
-const IN = fs_1.default.readFileSync("test.txt", { encoding: "utf8" }).trim();
-fs_1.default.mkdirSync("radix");
+const IN = process.env.DATA;
+fs_1.default.mkdirSync("encoded");
+const OUT = [];
 Object.keys(bases)
     .map(Number)
-    .forEach(b => {
+    .forEach((b) => {
     const base = b;
     const out = FMT(IN, base);
-    fs_1.default.writeFileSync(`radix/${("0".repeat(2 - `${base}`.length)) + base}`, out.e);
+    const RADIX = "0".repeat(2 - `${base}`.length) + base;
+    fs_1.default.writeFileSync(`encoded/${RADIX}`, out.e);
+    OUT.push(`${RADIX}: ${out.e}`);
 });
+fs_1.default.writeFileSync("encoded.txt", OUT.join("\n"));
+fs_1.default.writeFileSync("test.md", [
+    "`" + FMT(IN, 36).e + "`",
+    "*".repeat(FMT(IN, 36).e.length),
+    FMT(IN, 36).d
+].join("\n"));
