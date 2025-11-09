@@ -8,7 +8,17 @@ let bases: Record<number, string> = {}
 for (let i: number = 2; i <= digits.length; i++) {
 	bases[i] = `[${digits.slice(0, i)}]`
 }
-const UNI: Array<Record<string, string>> = YAML.load(fs.readFileSync("uni.yml", "utf8")) as Array<Record<string, string>>
+const UNI: Array<Record<string, string>> = (YAML
+	.load(fs
+		.readFileSync("uni.yml", "utf8")
+	) as Array<Record<string, number>>
+)
+	.map(i => {
+		return Object.fromEntries(
+			Object.entries(i)
+				.map(([k, v]) => [k, String.fromCodePoint(v)])
+		)
+	})
 const ENCODING: Array<string> = [
 	...(
 		YAML.load(
@@ -19,7 +29,7 @@ const ENCODING: Array<string> = [
 	...UNI
 		.map(i => Object.values(i))
 		.flat() as string[]
-]
+].map(String)
 function getLength(base: Radix): number {
 	return ENCODING
 		.indexOf(ENCODING
@@ -84,7 +94,12 @@ Object.keys(bases)
 	})
 fs.writeFileSync("encoded.txt", OUT.join("\n"))
 fs.writeFileSync("test.md", [
+	"<!--",
 	"`" + FMT(IN, 36).e + "`",
 	"*".repeat(FMT(IN, 36).e.length),
+	"-->",
+	"<style>body{font:20pt\"Noto Sans\",\"Fira Code\"}</style>",
 	FMT(IN, 36).d
+		.replace(/\[ \] (.)$/gm, (_, m) => `[x] ${m}`)
+		.replace(/(.)_$/gm, (_, m) => `${m}`)
 ].join("\n"))

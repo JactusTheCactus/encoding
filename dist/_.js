@@ -10,14 +10,20 @@ let bases = {};
 for (let i = 2; i <= digits.length; i++) {
     bases[i] = `[${digits.slice(0, i)}]`;
 }
-const UNI = js_yaml_1.default.load(fs_1.default.readFileSync("uni.yml", "utf8"));
+const UNI = js_yaml_1.default
+    .load(fs_1.default
+    .readFileSync("uni.yml", "utf8"))
+    .map(i => {
+    return Object.fromEntries(Object.entries(i)
+        .map(([k, v]) => [k, String.fromCodePoint(v)]));
+});
 const ENCODING = [
     ...js_yaml_1.default.load(fs_1.default.readFileSync("encoding.yml", "utf8"))
         .flat(Infinity),
     ...UNI
         .map(i => Object.values(i))
         .flat()
-];
+].map(String);
 function getLength(base) {
     return ENCODING
         .indexOf(ENCODING
@@ -73,7 +79,12 @@ Object.keys(bases)
 });
 fs_1.default.writeFileSync("encoded.txt", OUT.join("\n"));
 fs_1.default.writeFileSync("test.md", [
+    "<!--",
     "`" + FMT(IN, 36).e + "`",
     "*".repeat(FMT(IN, 36).e.length),
+    "-->",
+    "<style>body{font:20pt\"Noto Sans\",\"Fira Code\"}</style>",
     FMT(IN, 36).d
+        .replace(/\[ \] (.)$/gm, (_, m) => `[x] ${m}`)
+        .replace(/(.)_$/gm, (_, m) => `${m}`)
 ].join("\n"));
