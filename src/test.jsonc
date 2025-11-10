@@ -1,0 +1,55 @@
+{
+	"consonants": {
+		"single": {
+			"/b/": "Bb",
+			"/d/": "Dd",
+			"/d_/": "D_d_",
+			"/f/": "Ff",
+			"/g/": "Gg",
+			"/h/": "Hh",
+			"/j/": "Jj",
+			"/k/": "Kk",
+			"/l/": "Ll",
+			"/m/": "Mm",
+			"/n/": "Nn",
+			"/n_/": "N_n_",
+			"/p/": "Pp",
+			"/r/": "Rr",
+			"/s/": "Ss",
+			"/s__/": "S'_s'_",
+			"/t/": "Tt",
+			"/t__/": "T_t_",
+			"/v/": "Vv",
+			"/w/": "Ww",
+			"/z/": "Zz",
+			"/z_/": "Z_z_"
+		},
+		"affricates": {
+			"/ts__/": "Ts_'_" /* T/t + S'_/s'_ = TS'_/ts'_ */,
+			"/dz_/": "Dz_" /* D/d + Z_/z_ = DZ_/dz_ */
+		}
+	},
+	"vowels": {
+		"single": {
+			"/a__/": "Aa",
+			"/a_/": "A_a_",
+			"/e__/": "Ee",
+			"/e/": "E'_e'_",
+			"/e_/": "E_e_",
+			"/i__/": "Ii",
+			"/i/": "I'_i'_",
+			"/o__/": "Oo",
+			"/o/": "O'_o'_",
+			"/o___/": "O_o_",
+			"/u/": "Uu"
+		},
+		"diphthongs": {
+			"/ai__/": "Ai'_" /* A/a + I'_/i'_ = AI'_/ai'_ */,
+			"/au/": "Au" /* A/a + U/u = AU/au */
+		}
+	},
+	"extra": {
+		"emphasis": "X_x_" /* Attaches to Vowels (On a single vowel / the last vowel in a diphthong) */,
+		"diaresis": "X_x__" /* Attaches to Diphthongs (On the first vowel in a diphthong) */
+	}
+}

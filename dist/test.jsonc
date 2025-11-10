@@ -1,0 +1,55 @@
+{
+	"consonants": {
+		"single": {
+			"/b/": "Bb",
+			"/d/": "Dd",
+			"/ð/": "Ðð",
+			"/f/": "Ff",
+			"/g/": "Gg",
+			"/h/": "Hh",
+			"/j/": "Jj",
+			"/k/": "Kk",
+			"/l/": "Ll",
+			"/m/": "Mm",
+			"/n/": "Nn",
+			"/ŋ/": "Ŋŋ",
+			"/p/": "Pp",
+			"/r/": "Rr",
+			"/s/": "Ss",
+			"/ʃ/": "Śś",
+			"/t/": "Tt",
+			"/θ/": "Þþ",
+			"/v/": "Vv",
+			"/w/": "Ww",
+			"/z/": "Zz",
+			"/ʒ/": "Ʒʒ"
+		},
+		"affricates": {
+			"/tʃ/": "Ts_́" /* T/t + Ś/ś = TŚ/tś */,
+			"/dʒ/": "Dʒ" /* D/d + Ʒ/ʒ = DƷ/dʒ */
+		}
+	},
+	"vowels": {
+		"single": {
+			"/ɑ/": "Aa",
+			"/æ/": "Ææ",
+			"/ɛ/": "Ee",
+			"/e/": "Éé",
+			"/ə/": "Əə",
+			"/ɪ/": "Ii",
+			"/i/": "Íí",
+			"/ɔ/": "Oo",
+			"/o/": "Óó",
+			"/ʊ/": "Œœ",
+			"/u/": "Uu"
+		},
+		"diphthongs": {
+			"/aɪ/": "Aí" /* A/a + Í/í = AÍ/aí */,
+			"/au/": "Au" /* A/a + U/u = AU/au */
+		}
+	},
+	"extra": {
+		"emphasis": "◌̣" /* Attaches to Vowels (On a single vowel / the last vowel in a diphthong) */,
+		"diaresis": "◌̤" /* Attaches to Diphthongs (On the first vowel in a diphthong) */
+	}
+}
