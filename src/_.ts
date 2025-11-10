@@ -155,7 +155,6 @@ body {
 					<li>
 						Letters that fully replace ASCII forms make the same sound
 						<ul>
-							<li>Yogh (\u{21C}\u{21D}) === G</li>
 							<li>
 								Long S (\u{17F}) === S.
 								Long S has no Majuscule form;
