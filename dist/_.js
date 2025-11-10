@@ -81,8 +81,8 @@ else {
     });
     fs_1.default.writeFileSync("encoded.log", OUT.join("\n"));
     fs_1.default.writeFileSync("test.html", [
-        // "`" + FMT(IN, 36).e + "`",
-        // "*".repeat(FMT(IN, 36).e.length),
+        "`" + FMT(IN, 2).e + "`",
+        "*".repeat(FMT(IN, 2).e.length),
         "<style>",
         sass_1.default.compileString(`
 body {
