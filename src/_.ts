@@ -95,8 +95,8 @@ if (process.env.FILE) {
 		})
 	fs.writeFileSync("encoded.log", OUT.join("\n"))
 	fs.writeFileSync("test.html", [
-		// "`" + FMT(IN, 36).e + "`",
-		// "*".repeat(FMT(IN, 36).e.length),
+		"`" + FMT(IN, 2).e + "`",
+		"*".repeat(FMT(IN, 2).e.length),
 		"<style>",
 		sass.compileString(`
 body {
