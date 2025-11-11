@@ -1,0 +1,46 @@
+consonants:
+  monographs:
+    /b/: Bb
+    /d/: Dd
+    /d_/: D_d_
+    /f/: Ff
+    /g/: Gg
+    /h/: Hh
+    /j/: Jj
+    /k/: Kk
+    /l/: Ll
+    /m/: Mm
+    /n/: Nn
+    /n_/: N_n_
+    /p/: Pp
+    /r/: Rr
+    /s/: Ss
+    /s__/: S'_s'_
+    /t/: Tt
+    /t__/: T_t_
+    /v/: Vv
+    /w/: Ww
+    /z/: Zz
+    /z_/: Z_z_
+  digraphs:
+    /ts__/: Ts'_
+    /dz_/: Dz_
+vowels:
+  monographs:
+    /a__/: Aa
+    /a_/: A_a_
+    /e__/: Ee
+    /e/: E'_e'_
+    /e_/: E_e_
+    /i__/: Ii
+    /i/: I'_i'_
+    /o__/: Oo
+    /o/: O'_o'_
+    /o___/: O_o_
+    /u/: Uu
+  digraphs:
+    /ai__/: Ai'_
+    /au/: Au
+diacritics:
+  emphasis: X_x_
+  diaresis: X_x__
