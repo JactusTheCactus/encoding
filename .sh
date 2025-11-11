@@ -125,11 +125,11 @@ find "$DIR" \
 	-type f \
 	-not \( \
 		-wholename "$DIR/encoded/*" -o \
-		-name "*.yml" -o \
-		-name "*.ts" -o \
-		-name "*.js" -o \
-		-name "*.log" -o \
-		-name "*.html" \
+		-name "encoding.yml" -o \
+		-name "uni.yml" -o \
+		-name "_.js" -o \
+		-name "_.log" -o \
+		-name "encoded.log" \
 	\) | while IFS= read -r file; do
 	echo "${file#$DIR/}"
 	FILE="$file"
