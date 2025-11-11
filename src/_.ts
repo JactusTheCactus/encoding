@@ -25,8 +25,7 @@ const ENCODING: Array<string> = [
 		YAML.load(
 			fs.readFileSync("encoding.yml", "utf8")
 		) as Array<string>
-	)
-		.flat(Infinity),
+	).flat(Infinity),
 	...UNI
 		.map(i => Object.values(i))
 		.flat() as string[]
@@ -43,10 +42,7 @@ function getLength(base: Radix): number {
 function encode(input: string, base: Radix): string {
 	return input.replace(/[\S\s]/g, (m: string): string => {
 		const idx = ENCODING.indexOf(m)
-		return (idx === -1
-			? 0
-			: idx
-		)
+		return (idx === -1 ? 0 : idx)
 			.toString(base)
 			.toUpperCase()
 			.padStart(getLength(base), "0")

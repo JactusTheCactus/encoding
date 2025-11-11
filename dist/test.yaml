@@ -15,7 +15,7 @@ consonants:
     /p/: Pp
     /r/: Rr
     /s/: Ss
-    /ʃ/: Śś
+    /ʃ/: Ʃʃ
     /t/: Tt
     /θ/: Þþ
     /v/: Vv
@@ -23,7 +23,7 @@ consonants:
     /z/: Zz
     /ʒ/: Ʒʒ
   digraphs:
-    /tʃ/: Tś
+    /tʃ/: Tʃ
     /dʒ/: Dʒ
 vowels:
   monographs:
@@ -32,15 +32,16 @@ vowels:
     /ɛ/: Ee
     /e/: Éé
     /ə/: Əə
-    /ɪ/: Ii
-    /i/: Íí
+    /i/: Ii
     /ɔ/: Oo
-    /o/: Óó
+    /o/: Ωω
     /ʊ/: Œœ
     /u/: Uu
+    /ɪ/: Yy
   digraphs:
-    /aɪ/: Aí
+    /aɪ/: Ai
     /au/: Au
 diacritics:
   emphasis: ◌̣
   diaresis: ◌̤
+  acute accent: ◌́

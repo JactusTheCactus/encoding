@@ -19,8 +19,7 @@ const UNI = js_yaml_1.default
         .map(([k, v]) => [k, String.fromCodePoint(v)]));
 });
 const ENCODING = [
-    ...js_yaml_1.default.load(fs_1.default.readFileSync("encoding.yml", "utf8"))
-        .flat(Infinity),
+    ...js_yaml_1.default.load(fs_1.default.readFileSync("encoding.yml", "utf8")).flat(Infinity),
     ...UNI
         .map(i => Object.values(i))
         .flat()
@@ -36,9 +35,7 @@ function getLength(base) {
 function encode(input, base) {
     return input.replace(/[\S\s]/g, (m) => {
         const idx = ENCODING.indexOf(m);
-        return (idx === -1
-            ? 0
-            : idx)
+        return (idx === -1 ? 0 : idx)
             .toString(base)
             .toUpperCase()
             .padStart(getLength(base), "0");
